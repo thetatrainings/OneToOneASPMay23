@@ -1,0 +1,59 @@
+﻿@model EcommerceStore.Models.Product
+
+
+
+
+<form  asp-action="Add" method="post">
+
+    <label>Name</label>
+    <input type="text" asp-for="Name" placeholder="Name"/>
+    <br />
+    <br />
+    <label>Description</label>
+    <input type="text" asp-for="Description" placeholder="Description"/>
+    <br />
+    <br />
+    <label>Price</label>
+    <input type="text" asp-for="Price" placeholder="Price" />
+    <br />
+    <br /><label>Quantity</label>
+    <input type="text" asp-for="Quantity" placeholder="Quantity" />
+    <br />
+    <br />
+    <label>CategoryId</label>
+    <input type="text" asp-for="CategoryId" placeholder="CategoryId" />
+    <br />
+    <br />
+    <label>CreatedBy</label>
+    <input type="text" asp-for="CreatedBy" placeholder="CreatedBy" />
+    <br />
+    <br />
+    <label>CreatedDate</label>
+    <input type="text" asp-for="CreatedDate" placeholder="CreatedDate" />
+    <br />
+    <br />
+    <label>ModifiedDate</label>
+    <input type="text" asp-for="ModifiedDate" placeholder="ModifiedDate" />
+    <br />
+    <br />
+    <label>ModifyBy</label>
+    <input type="text" asp-for="ModifyBy" placeholder="ModifyBy" />
+    <br />
+    <br />
+    <label>Status</label>
+    <input type="text" asp-for="Status" placeholder="Status" />
+    <br />
+    <br />
+    <label>Image</label>
+    <input type="text" asp-for="Image" placeholder="Image" />
+    <br />
+    <br />
+    <label>save</label>
+    <input type="submit" value="save"/>
+
+
+
+
+
+
+</form>

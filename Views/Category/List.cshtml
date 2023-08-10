@@ -1,0 +1,91 @@
+﻿@model IList<EcommerceStore.Models.Category>
+
+<style>
+
+</style>
+
+<table class="table table-bordered">
+
+
+
+    <thead>
+        <tr>
+
+
+            <th>Name</th>
+            <th>Description</th>
+            <th>ParentId</th>
+           <th>CreatedBy</th>
+            <th>CreatedDate</th>
+            <th>ModifiedDate</th>
+            <th>ModifyBy</th>
+            <th>Status</th>
+       
+
+
+
+
+        </tr>
+
+
+
+
+
+    </thead>
+
+
+
+
+    <tbody>
+
+        @foreach (var am in Model)
+        {
+
+            <tr>
+
+                <td data-label="Name">@am.Name</td>
+                <td data-label="Description">@am.Description</td>
+                <td data-label="Price">@am.ParentId</td>
+                
+                <td data-label="CreatedBy">@am.CreatedBy</td>
+                <td data-label="CreatedDate">@am.CreatedDate</td>
+                <td data-label="ModifiedDate">@am.ModifiedDate</td>
+                <td data-label="ModifyBy">@am.ModifiedDate</td>
+                <td data-label="Status">@am.Status</td>
+       
+
+                <td>
+
+                    <a asp-action="Detail" asp-controller="Category" asp-route-id="@am.Id" class="btn btn-warning">Details</a>
+                    <a asp-action="Edit" asp-controller="Category" asp-route-id="@am.Id" class="btn btn-warning">Edit</a>
+                    <a asp-action="Delete" asp-controller="Category" asp-route-id="@am.Id" class="btn btn-warning">Delete</a>
+
+
+
+
+                </td>
+
+
+
+
+
+
+
+
+            </tr>
+
+
+
+
+        }
+
+
+
+
+
+    </tbody>
+
+
+
+
+</table>
