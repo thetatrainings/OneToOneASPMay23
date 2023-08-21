@@ -3,29 +3,20 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EcommerceStore.Controllers
 {
-
-
-    public class ProductsController : Controller
+    public class AdminController : Controller
     {
-
 
 
 
 
         private readonly ecommerce_appContext _ecommerce_appContext;
         private readonly IWebHostEnvironment _webHostEnvironment;
-        public ProductsController(ecommerce_appContext ecommerce_appContext, IWebHostEnvironment webHostEnvironment)
-       {
+        public AdminController(ecommerce_appContext ecommerce_appContext, IWebHostEnvironment webHostEnvironment)
+        {
 
             _ecommerce_appContext = ecommerce_appContext;
             _webHostEnvironment = webHostEnvironment;
-
-             }
-
-
-
-
-
+        }
 
         [HttpGet]
         public IActionResult Add()
@@ -34,11 +25,11 @@ namespace EcommerceStore.Controllers
         }
 
 
-
         [HttpPost]
-        public IActionResult Add(Product pr, IFormFile? img)
+        public IActionResult Add(Admin am, IFormFile? img)
         {
-            if(img != null)
+
+            if (img != null)
             {
                 string Name = Guid.NewGuid().ToString();
                 string fileExtention = Path.GetExtension(img.FileName);
@@ -47,82 +38,76 @@ namespace EcommerceStore.Controllers
                 {
                     img.CopyTo(FS);
                 }
-                pr.Image = FinalPath;
+                am.Image = FinalPath;
             }
-            _ecommerce_appContext.Products.Add( pr );
+            _ecommerce_appContext.Admins.Add(am);
             _ecommerce_appContext.SaveChanges();
 
 
+
+
+
+
+
+
+
+
+
             return View();
-
-
         }
-
-
-        public IActionResult List(int id) {
-
-            IList<Product> productslist = _ecommerce_appContext.Products.ToList();
-    
-
-
-
-
-
-            return View(productslist);
-
-        }
-
-
-
-
-
         public IActionResult Detail(int id)
         {
-           var ui=  _ecommerce_appContext.Products.Find(id);
-           
 
 
-            return View(ui);
+
+            var va = _ecommerce_appContext.Admins.Find(id);
+
+
+
+
+            return View(va);
+
+
         }
 
 
         [HttpGet]
         public IActionResult Edit(int id)
         {
-           var yy= _ecommerce_appContext.Products.Find(id);
 
-            
-            return View(yy);
+            var va = _ecommerce_appContext.Admins.Find(id);
+
+
+            return View(va);
+
+
         }
-        [HttpPost]
 
-        public IActionResult Edit(Product pr)
+
+        [HttpPost]
+        public IActionResult Edit(Admin se)
         {
 
-            _ecommerce_appContext.Products.Update(pr);
+            _ecommerce_appContext.Admins.Add(se);
             _ecommerce_appContext.SaveChanges();
-                
-
-
 
             return View();
+
+
         }
 
         [HttpGet]
         public IActionResult Delete(int id)
         {
 
-          var yu =  _ecommerce_appContext.Products.Find(id);
-            return View(yu);
-
-
+            var va = _ecommerce_appContext.Admins.Find(id);
+            return View(va);
 
         }
-
         [HttpPost]
-        public IActionResult Delete(Product pr)
+        public IActionResult Delete(Admin se)
         {
-          var tg = _ecommerce_appContext.Products.Find(pr.Id);
+            var tg = _ecommerce_appContext.Sellers.Find(se.Id);
             _ecommerce_appContext.Remove(tg);
 
             _ecommerce_appContext.SaveChanges();
@@ -133,7 +118,20 @@ namespace EcommerceStore.Controllers
 
             return RedirectToAction(nameof(List));
 
-          
+
+
+
+
+        }
+
+        public IActionResult List(int id)
+        {
+
+
+            IList<Admin> Adminslist = _ecommerce_appContext.Admins.ToList();
+
+            return View(Adminslist);
+
 
 
 
@@ -144,8 +142,13 @@ namespace EcommerceStore.Controllers
 
 
 
-
-
-
     }
 }
+
+
+
+
+
+
+
+

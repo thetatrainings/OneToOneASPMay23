@@ -250,7 +250,7 @@ namespace EcommerceStore.Models
                     .HasMaxLength(50)
                     .HasColumnName("address");
 
-                entity.Property(e => e.CompanyName).HasColumnName("company_name");
+               
 
                 entity.Property(e => e.CreatedBy)
                     .HasMaxLength(50)

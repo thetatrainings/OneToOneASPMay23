@@ -1,9 +1,24 @@
 ﻿@model EcommerceStore.Models.Product
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - EcommerceStore</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/EcommerceStore.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
 
 
 
-<form  asp-action="Add" method="post">
+<form  asp-action="Add" method="post" enctype="multipart/form-data">
 
     <label>Name</label>
     <input type="text" asp-for="Name" placeholder="Name"/>
@@ -40,12 +55,37 @@
     <input type="text" asp-for="ModifyBy" placeholder="ModifyBy" />
     <br />
     <br />
-    <label>Status</label>
-    <input type="text" asp-for="Status" placeholder="Status" />
+   
+        <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            status
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+           
+                <option value="Active" asp-for="Status" class="dropdown-item">Active</option>
+                <option value="InActive" asp-for="Status" class="dropdown-item">InActive</option>
+         
+                
+        </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
     <br />
     <br />
+
+
+
+
     <label>Image</label>
-    <input type="text" asp-for="Image" placeholder="Image" />
+    <input type="file" name="img" />
     <br />
     <br />
     <label>save</label>
@@ -57,3 +97,5 @@
 
 
 </form>
+
+</body>

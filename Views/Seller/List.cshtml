@@ -1,0 +1,95 @@
+﻿@model IList<EcommerceStore.Models.Seller>
+
+<style>
+
+</style>
+
+<table class="table table-bordered">
+
+
+
+    <thead>
+        <tr>
+
+
+            <th>Name</th>
+            <th>Address</th>
+            <th>PhoneNumber</th>
+            <th>JoinDate </th>
+            <th>Role </th>
+            <th>CreatedBy</th>
+            <th>CreatedDate</th>
+            <th>ModifiedDate</th>
+            <th>ModifyBy</th>
+            <th>Status</th>
+            <th>Image</th>
+
+
+
+
+
+        </tr>
+
+
+
+
+
+    </thead>
+
+
+
+
+    <tbody>
+
+        @foreach (var am in Model)
+        {
+
+            <tr>
+
+                <td data-label="Name">@am.Name</td>
+                <td data-label="Address">@am.Address</td>
+                <td data-label="PhoneNumber">@am.PhoneNumber</td>
+                <td data-label="JoinDate">@am.JoinDate</td>
+                <td data-label="Role">@am.Role</td>
+                <td data-label="CreatedBy">@am.CreatedBy</td>
+                <td data-label="CreatedDate">@am.CreatedDate</td>
+                <td data-label="ModifiedDate">@am.ModifiedDate</td>
+                <td data-label="ModifyBy">@am.ModifyBy</td>
+                <td data-label="Status">@am.Status</td>
+                <td data-label="Image">@am.Image</td>
+
+                <td>
+
+                    <a asp-action="Edit" asp-controller="Seller" asp-route-id="@am.Id" class="btn btn-warning">Edit</a>
+                    <a asp-action="Detail" asp-controller="Selller" asp-route-id="@am.Id" class="btn btn-warning">Detail</a>
+                    <a asp-action="Delete" asp-controller="Seller" asp-route-id="@am.Id" class="btn btn-warning">Delete</a>
+
+
+
+
+                </td>
+
+
+
+
+
+
+
+
+            </tr>
+
+
+
+
+        }
+
+
+
+
+
+    </tbody>
+
+
+
+
+</table>
