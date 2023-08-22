@@ -24,7 +24,15 @@
     <input type="text" asp-for="ProductId" placeholder="ProductId" />
     <br />
     <br />
-    <input type="text" asp-for="Status" placeholder="Status" />
+    <select asp-for="Status">
+
+        <option value="active">Active</option>
+        <option value="inactive">Inactive</option>
+
+
+
+
+    </select>
     <br />
     <br />
     <input type="text"  asp-for="OrderDetail" placeholder="order Detail" />

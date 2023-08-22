@@ -35,16 +35,16 @@ namespace EcommerceStore.Controllers
 
 
         [HttpPost]
-        public IActionResult Add(Customer cu, IFormFile? imgs)
+        public IActionResult Add(Customer cu, IFormFile? img)
         {
-            if (imgs != null)
+            if (img != null)
             {
                 string Name = Guid.NewGuid().ToString();
-                string fileExtention = Path.GetExtension(imgs.FileName);
+                string fileExtention = Path.GetExtension(img.FileName);
                 string FinalPath = "/data/" + Name + fileExtention;
                 using (FileStream FS = new FileStream(_webHostEnvironment.WebRootPath + FinalPath, FileMode.Create))
                 {
-                    imgs.CopyTo(FS);
+                    img.CopyTo(FS);
                 }
                 cu.Image = FinalPath;
             }

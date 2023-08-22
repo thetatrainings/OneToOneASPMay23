@@ -45,8 +45,16 @@
     <input type="text" asp-for="ModifyBy" placeholder="ModifyBy" />
     <br />
     <br />
+    <select asp-for="Status">
 
-    <input type="text" asp-for="Status" placeholder="Status" />
+        <option value="active">Active</option>
+        <option value="inactive">Inactive</option>
+
+
+
+
+    </select>
+    
     <br />
 
     <input type="text" asp-for="SystemUserId" placeholder="SystemUserId" />

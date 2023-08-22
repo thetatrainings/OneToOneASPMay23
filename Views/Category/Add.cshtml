@@ -33,8 +33,13 @@
     <input type="text" asp-for="ModifiedBy" placeholder="ModifyBy" />
     <br />
     <br />
-    <label>Status</label>
-    <input type="text" asp-for="Status" placeholder="Status" />
+    <select asp-for="Status">
+
+        <option value="active">Active</option>
+        <option value="inactive">Inactive</option>
+
+
+       </select>
     <br />
     
     <br />
