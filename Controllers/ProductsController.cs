@@ -30,28 +30,38 @@ namespace EcommerceStore.Controllers
         [HttpGet]
         public IActionResult Add()
         {
+            ViewBag.Catagory = _ecommerce_appContext.Products.ToList();
             return View();
         }
 
 
 
         [HttpPost]
-        public IActionResult Add(Product pr, IFormFile? img)
+        public IActionResult Add(Product pr, List<IFormFile>? img)
         {
+            var CommaSeperated = "";
             if(img != null)
             {
-                string Name = Guid.NewGuid().ToString();
-                string fileExtention = Path.GetExtension(img.FileName);
-                string FinalPath = "/data/" + Name + fileExtention;
-                using (FileStream FS = new FileStream(_webHostEnvironment.WebRootPath + FinalPath, FileMode.Create))
+                foreach(var SingleImg in img)
                 {
-                    img.CopyTo(FS);
+                    string Name = Guid.NewGuid().ToString();
+                    string fileExtention = Path.GetExtension(SingleImg.FileName);
+                    string FinalPath = "/data/" + Name + fileExtention;
+                    using (FileStream FS = new FileStream(_webHostEnvironment.WebRootPath + FinalPath, FileMode.Create))
+                    {
+                        SingleImg.CopyTo(FS);
+                    }
+                    CommaSeperated += "," + FinalPath;
                 }
-                pr.Image = FinalPath;
             }
+            if (CommaSeperated.StartsWith(","))
+            {
+                CommaSeperated = CommaSeperated.Remove(0, 1);
+            }
+            pr.Image = CommaSeperated;
             _ecommerce_appContext.Products.Add( pr );
             _ecommerce_appContext.SaveChanges();
-
+            ViewBag.Catagory = _ecommerce_appContext.Products.ToList();
 
             return View();
 
