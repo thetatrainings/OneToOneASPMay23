@@ -30,6 +30,7 @@ namespace EcommerceStore.Controllers
         [HttpGet]
         public IActionResult Add()
         {
+            
             ViewBag.Catagory = _ecommerce_appContext.Products.ToList();
             return View();
         }
@@ -63,13 +64,13 @@ namespace EcommerceStore.Controllers
             _ecommerce_appContext.SaveChanges();
             ViewBag.Catagory = _ecommerce_appContext.Products.ToList();
 
-            return View();
+            return RedirectToAction(nameof(Lists));
 
 
         }
 
 
-        public IActionResult List(int id) {
+        public IActionResult Lists() {
 
             IList<Product> productslist = _ecommerce_appContext.Products.ToList();
     
@@ -137,11 +138,8 @@ namespace EcommerceStore.Controllers
 
             _ecommerce_appContext.SaveChanges();
 
-            RedirectToAction("List");
 
-
-
-            return RedirectToAction(nameof(List));
+            return RedirectToAction(nameof(Lists));
 
           
 

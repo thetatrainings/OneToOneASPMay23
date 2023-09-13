@@ -11,16 +11,24 @@ namespace EcommerceStore.Controllers
 
         private readonly ecommerce_appContext _ecommerce_appContext;
         private readonly IWebHostEnvironment _webHostEnvironment;
-        public AdminController(ecommerce_appContext ecommerce_appContext, IWebHostEnvironment webHostEnvironment)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        CookieOptions _options = new CookieOptions();
+        public AdminController(ecommerce_appContext ecommerce_appContext, IWebHostEnvironment webHostEnvironment, IHttpContextAccessor httpContextAccessor, CookieOptions options)
         {
 
             _ecommerce_appContext = ecommerce_appContext;
             _webHostEnvironment = webHostEnvironment;
+            _httpContextAccessor = httpContextAccessor;
+            _options = options;
         }
 
         [HttpGet]
         public IActionResult Add()
         {
+            if (HttpContext.Session.GetString("Name") == null)
+            {
+                return RedirectToAction(nameof(Login));
+            }
             return View();
         }
 
@@ -40,6 +48,8 @@ namespace EcommerceStore.Controllers
                 }
                 am.Image = FinalPath;
             }
+            am.CreatedDate = DateTime.Now;
+            am.CreatedBy = "System";
             _ecommerce_appContext.Admins.Add(am);
             _ecommerce_appContext.SaveChanges();
 
@@ -87,7 +97,8 @@ namespace EcommerceStore.Controllers
         [HttpPost]
         public IActionResult Edit(Admin se)
         {
-
+            se.ModifiedDate = DateTime.Now;
+            se.ModifyBy = "Edit System";
             _ecommerce_appContext.Admins.Add(se);
             _ecommerce_appContext.SaveChanges();
 
@@ -137,11 +148,40 @@ namespace EcommerceStore.Controllers
 
         }
 
+        [HttpGet]
+        public IActionResult Login()
+        {
+            //get Key
+            var username = Request.Cookies["Username"];
+            if(username != null)
+            {
+                return View(nameof(Add));
+            }
 
+            Response.Cookies.Delete("Username");
+            return View(); 
+        }
+        [HttpPost]
+        public IActionResult Login(Admin admin)
+        {
+            var adminExist = _ecommerce_appContext.Admins.Where(m => m.UserName == admin.UserName && m.Password == admin.Password).FirstOrDefault();
+            if(adminExist != null)
+            {
+                _httpContextAccessor.HttpContext.Response.Cookies.Append("Username", adminExist.UserName);
+                _options.Expires = DateTime.Now.AddDays(4);
+                HttpContext.Session.SetString("Name", adminExist.UserName);
+                HttpContext.Session.SetString("Role", adminExist.Role);
+                return RedirectToAction(nameof(List));
+            }
+            ViewBag.NotFound = "Not Found";
+            return View();
+        }
 
-
-
-
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return View(nameof(Login));
+        }
     }
 }
 
