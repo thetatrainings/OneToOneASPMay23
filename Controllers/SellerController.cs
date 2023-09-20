@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Net;
+using System.Net.Mail;
 
 namespace EcommerceStore.Controllers
 {
@@ -41,6 +43,24 @@ namespace EcommerceStore.Controllers
                 }
                 se.Image = FinalPath;
             }
+
+            MailMessage mail = new MailMessage();
+            mail.Subject = "Ecommerce Store";
+            mail.Body = "HI Thanks for joining to Ecommerce Store";
+            mail.To.Add("Usman@gmail.com");
+            mail.Bcc.Add("usman2@gmail.com");
+            mail.CC.Add("Usman3@gmail.com");
+
+            mail.From = new MailAddress("Ecommerce@gmail.com", "Ecommerce Store");
+
+            SmtpClient smtp = new SmtpClient();
+            smtp.Port = 456;
+            smtp.Host = "smtp.gmail.com";
+            smtp.Credentials = new NetworkCredential("emailName", "password");
+            smtp.EnableSsl = true;
+
+            smtp.Send(mail);
+
             _ecommerce_appContext.Sellers.Add(se);
             _ecommerce_appContext.SaveChanges();
 
