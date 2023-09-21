@@ -1,0 +1,13 @@
+﻿
+<button id="btnPro">Show Products</button>
+<div class="mainDiv">
+
+</div>
+
+@section Scripts{
+    <script>
+        $("#btnPro").click(function(){
+            $(".mainDiv").load("/Products/GetProducts");
+        });
+    </script>
+}

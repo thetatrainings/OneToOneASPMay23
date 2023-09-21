@@ -150,10 +150,26 @@ namespace EcommerceStore.Controllers
 
 
 
+        public IActionResult Index()
+        {
+            return View();
+        }
 
 
-
-
+        public string GetProducts()
+        {
+            var pro = _ecommerce_appContext.Products.Take(4).ToList();
+            var productString = "<div class='row row-cols-1 row-cols-md-3 g-4'>";
+            foreach(var item in pro)
+            {
+                if(item.Image != null)
+                {
+                    productString += "<div class='col'><div class='card h-100'> <img src='" + item.Image.Split(",")[0] + "' class='card-img-top' alt='...'><div class='card-body'><h5 class='card-title'>" + item.Description + "</p></div></div></div>";
+                }
+            }
+            productString += "</div>";
+           return productString;
+        }
 
     }
 }
