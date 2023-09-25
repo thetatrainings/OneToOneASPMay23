@@ -1,5 +1,8 @@
-﻿
-<button id="btnPro">Show Products</button>
+﻿@{
+    var ProductList = ViewBag.Catagory;
+    SelectList catagoryList = new SelectList(ProductList, "Id", "Name");
+}
+@*<button id="btnPro">Show Products</button>
 <div class="mainDiv">
 
 </div>
@@ -8,6 +11,40 @@
     <script>
         $("#btnPro").click(function(){
             $(".mainDiv").load("/Products/GetProducts");
+        });
+    </script>
+}*@
+<div class="row">
+<select id="catagory" class="form-control col-10">
+    @foreach (var item in catagoryList)
+    {
+            <option value="@item.Text">@item.Text</option>
+    }
+</select>
+<input type="button" id="btnSubmit" value="Ajax Request" class="form-control btn btn-success col-2" />
+</div>
+<div class="mainDiv">
+
+</div>
+
+@section scripts{
+    <script>
+        $("#btnSubmit").click(function(){
+            alert("hhj");
+            var cata = $("#catagory").val();
+            $.ajax({
+                url: "/Products/GetProducts",
+                type: "GET",
+                data: {
+                    name: cata,
+                },
+                success:function(result){
+                    $(".mainDiv").html(result);
+                },
+                error:function(result){
+
+                }
+            });
         });
     </script>
 }

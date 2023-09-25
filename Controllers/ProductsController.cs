@@ -152,13 +152,15 @@ namespace EcommerceStore.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.Catagory = _ecommerce_appContext.Products.ToList();
             return View();
         }
 
-
-        public string GetProducts()
+        [HttpGet]
+        public string GetProducts(string name)
         {
-            var pro = _ecommerce_appContext.Products.Take(4).ToList();
+            //var pro = _ecommerce_appContext.Products.Take(4).ToList();
+            var pro = _ecommerce_appContext.Products.Where(m => m.Name == name).ToList();
             var productString = "<div class='row row-cols-1 row-cols-md-3 g-4'>";
             foreach(var item in pro)
             {
