@@ -70,10 +70,23 @@ namespace EcommerceStore.Controllers
         }
 
 
-        public IActionResult Lists() {
+        public IActionResult Lists() 
+        {
 
-            IList<Product> productslist = _ecommerce_appContext.Products.ToList();
-    
+            //IList<Product> productslist = _ecommerce_appContext.Products.ToList();
+
+            var productslist = (from pro in _ecommerce_appContext.Products
+                                //from cat in _ecommerce_appContext.Categories.Where(m => m.Id == pro.CategoryId).DefaultIfEmpty()
+                                join cat in _ecommerce_appContext.Categories on pro.CategoryId equals cat.Id
+                                select new ProductModel
+                                {
+                                    ProductId = pro.Id,
+                                    CategoryId = cat.Id,
+                                    ProductName = pro.Name,
+                                    CategoryName = cat.Name,
+                                    Quantity = pro.Quantity,
+                                    Description = pro.Description,
+                                }).ToList();
 
 
 
